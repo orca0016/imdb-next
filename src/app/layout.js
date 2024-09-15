@@ -1,9 +1,10 @@
 import localFont from "next/font/local";
+import { Suspense } from "react";
 import Header from "../components/Header";
-import "./globals.css";
-import Providers from "./Providers";
 import Navbar from "../components/Navbar";
 import SearchBox from "../components/SearchBox";
+import "./globals.css";
+import Providers from "./Providers";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,12 +28,14 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers>
-          <Header />
-          <Navbar/>
-          <SearchBox/>
-          {children}
-        </Providers>
+        <Suspense>
+          <Providers>
+            <Header />
+            <Navbar />
+            <SearchBox />
+            {children}
+          </Providers>
+        </Suspense>
       </body>
     </html>
   );
